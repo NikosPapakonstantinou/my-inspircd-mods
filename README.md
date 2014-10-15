@@ -1,11 +1,11 @@
 m_antispambot.cpp
 =======
 
-ModDesc: Blocks any type of floodbot/spambot. 
-ModAuthor: Nikos `UrL` Papakonstantinou
-ModAuthorMail: url.euro@gmail.com 
-ModDepends: core 2.0-2.1 
-ModVersion: $Rev: 22 $ 
+* ModDesc: Blocks any type of floodbot/spambot. 
+* ModAuthor: Nikos `UrL` Papakonstantinou
+* ModAuthorMail: url.euro@gmail.com 
+* ModDepends: core 2.0-2.1 
+* ModVersion: $Rev: 22 $ 
 
 Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. */
 Originally based on m_antibear and m_waitpong */
