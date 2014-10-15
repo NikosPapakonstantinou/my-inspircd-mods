@@ -22,6 +22,6 @@ Installation
 =======
 * 1. Compile the module 
 * 2. Add the following lines at your modules.conf 
-  ->  <module name="m_antispambot.so">
-  -> <AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">
+  `<module name="m_antispambot.so">`
+  `<AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">`
 * 3. Rehash
