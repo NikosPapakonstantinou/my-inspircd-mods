@@ -1,4 +1,4 @@
-m_antispambot.cpp
+m_antibotctcp.cpp
 =======
 
 * ModDesc: Blocks any type of floodbot/spambot. 
@@ -10,7 +10,7 @@ m_antispambot.cpp
 * Thanks to Ctcp for the tests.
 
 Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. 
-Originally based on m_antibear.
+
 
 Desc
 =======
@@ -22,6 +22,6 @@ Installation
 =======
 * 1. Compile the module 
 * 2. Add the following lines at your modules.conf 
-  `<module name="m_antispambot.so">` and
+  `<module name="m_antibotctcp.so">` and
   `<AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">`
 * 3. Rehash
