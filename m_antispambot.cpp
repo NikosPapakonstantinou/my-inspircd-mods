@@ -1,7 +1,20 @@
 #include "inspircd.h"
 
 /* $ModDesc: Blocks any type of floodbot/spambot. */
+/* $ModAuthor: Nikos `UrL` Papakonstantinou */
+/* $ModAuthorMail: url.euro@gmail.com */
 /* $ModDepends: core 2.0-2.1 */
+/* $ModVersion: $Rev: 22 $ */
+
+/* Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. */
+/* Originally based on m_antibear and m_waitpong */
+
+/*
+ * This module blocks any type of floodbot/spambot but it may kill 
+ * legitimate users with broken clients so use it at your own risk.
+ * Thanks to Attila for various fixes.
+ * Thanks to Ctcp for the tests.
+ */
  
 class ModuleAntiSpambot : public Module
 {
@@ -44,7 +57,7 @@ class ModuleAntiSpambot : public Module
 		user->WriteNumeric(931, "%s :Malicious or potentially unwanted softwares are not WELCOME here!", user->nick.c_str());
 		user->WriteServ("PRIVMSG %s :\1TIME\1", user->nick.c_str()); 
 		if(sendsnotice)
-                         user->WriteServ("NOTICE %s :***If you are having problems connecting to this server,please get a better CLIENT or visit: " + link + " for more infos.", user->nick.c_str());
+                         user->WriteServ("NOTICE " + user->nick + " :***If you are having problems connecting to this server,please get a better CLIENT or visit: " + link + " for more infos.");
 		ext.set(user, 1); 
 		return MOD_RES_PASSTHRU;
 	}
@@ -53,9 +66,9 @@ class ModuleAntiSpambot : public Module
 	{
 	    if (command == "NOTICE" && !validated && parameters.size() > 1 && ext.get(user))
 		{
-		        ext.unset(user);
+		        ext.set(user, 0);
 			if(msgonreply)
-		    user->WriteServ("NOTICE %s :***Welcome!You are authorized to use this server."user->nick.c_str());
+		         user->WriteServ("NOTICE " + user->nick + " :***If you are having problems connecting to this server,please get a better CLIENT or visit: " + link + " for more infos.");
 		        return MOD_RES_DENY;
 		}
 		return MOD_RES_PASSTHRU;
@@ -63,9 +76,9 @@ class ModuleAntiSpambot : public Module
 	
 	ModResult OnCheckReady(LocalUser* user)
 	{
-		if (ext.get(user))
-		return MOD_RES_DENY;
-    	return MOD_RES_PASSTHRU;
+	   if (ext.get(user))
+	   return MOD_RES_DENY;
+           return MOD_RES_PASSTHRU;
 	}
 	
 };
