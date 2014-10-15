@@ -18,7 +18,7 @@
 
 #include "inspircd.h"
 
-/* $ModConfig: <antifloodctcp link="http://yoursite.gr" sendsnotice="true" msgonreply="true"> */
+/* $ModConfig: <antibotctcp link="http://yoursite.gr" sendsnotice="true" msgonreply="true"> */
 /* $ModDesc: Blocks any type of floodbot/spambot. */
 /* $ModAuthor: Nikos `UrL` Papakonstantinou */
 /* $ModAuthorMail: url.euro@gmail.com */
