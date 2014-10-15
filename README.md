@@ -10,7 +10,7 @@ m_antispambot.cpp
 * Thanks to Ctcp for the tests.
 
 Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. 
-Originally based on m_antibear and m_waitpong. 
+Originally based on m_antibear.
 
 Desc
 =======
