@@ -19,8 +19,9 @@ Thanks to Ctcp for the tests.
 
 
 Installation
-1. Compile the module 
-2. Add the following lines at your modules.conf 
+=======
+* 1. Compile the module 
+* 2. Add the following lines at your modules.conf 
 <module name="m_antispambot.so">
 <AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">
-3. Rehash
+* 3. Rehash
