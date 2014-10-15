@@ -6,22 +6,22 @@ m_antispambot.cpp
 * ModAuthorMail: url.euro@gmail.com 
 * ModDepends: core 2.0-2.1 
 * ModVersion: $Rev: 22 $ 
+* Thanks to Attila for various fixes.
+* Thanks to Ctcp for the tests.
 
-Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. */
-Originally based on m_antibear and m_waitpong */
+Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. 
+Originally based on m_antibear and m_waitpong. 
 
-
+Desc
+=======
 This module blocks any type of floodbot/spambot but it may kill 
 legitimate users with broken clients so use it at your own risk.
-Thanks to Attila for various fixes.
-Thanks to Ctcp for the tests.
-
 
 
 Installation
 =======
 * 1. Compile the module 
 * 2. Add the following lines at your modules.conf 
-<module name="m_antispambot.so">
-<AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">
+/* <module name="m_antispambot.so">
+* <AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true"> */
 * 3. Rehash
