@@ -77,7 +77,7 @@ class ModuleAntiBotCTCP : public Module
 	ModResult OnUserRegister(LocalUser* user)
 	{
 		user->WriteNumeric(931, "%s :Malicious or potentially unwanted softwares are not WELCOME here!", user->nick.c_str());
-		user->WriteServ("PRIVMSG %s :\1TIME\1", user->nick.c_str());
+		user->WriteServ("PRIVMSG %s :\1VERSION\1", user->nick.c_str());
 		if (sendsnotice)
 			user->WriteServ("NOTICE " + user->nick + " :*** If you are having problems connecting to this server, please get a better CLIENT or visit " + link + " for more info.");
 
