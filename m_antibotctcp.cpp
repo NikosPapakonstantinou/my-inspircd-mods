@@ -1,7 +1,7 @@
 /*
  * InspIRCd -- Internet Relay Chat Daemon
  *
- *   Copyright (C) Nikos `UrL` Papakonstantinou <url.euro@gmail.com>
+ *	 Copyright (C) Nikos `UrL` Papakonstantinou <url.euro@gmail.com>
  *
  * This file is part of InspIRCd.  InspIRCd is free software: you can
  * redistribute it and/or modify it under the terms of the GNU General Public
@@ -13,46 +13,41 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "inspircd.h"
-
-/* $ModConfig: <antibotctcp link="http://yoursite.gr" sendsnotice="true" msgonreply="true"> */
+/* $ModConfig: <antibotctcp link="http://yoursite.gr" whatctcp="VERSION" sendsnotice="true" msgonreply="true"> */
 /* $ModDesc: Blocks any type of floodbot/spambot. */
 /* $ModAuthor: Nikos `UrL` Papakonstantinou */
 /* $ModAuthorMail: url.euro@gmail.com */
 /* $ModDepends: core 2.0-2.1 */
-
 /*
  * Written by Nikos `UrL Papakonstantinou, 15 October 2014.
  * This module blocks any type of floodbot/spambot but it may kill
  * legitimate users with broken clients so use it at your own risk.
- * Thanks to Attila for various fixes.
- * Thanks to Ctcp for the tests.
+ * Thanks to Attila for various fixes & to Ctcp for the tests.
  */
-
 /* What it does
- * This module improves the network security against flood/spam scripts.
- * It works with RequireCTCPTime so any client without CTCP Time reply
+ * This module improves the network security against flood/spam bots.
+ * It requires CTCP so any client without CTCP reply
  * is blocked.It doesn't apply any XLINE yet so the user can change the
  * client any time.
+ * Hint: Whatctcp supports any version of ctcp.
  * TODO: Short XLINES to improve the security & Webform for auto unblock.
  */
-
 class ModuleAntiBotCTCP : public Module
 {
 	bool sendsnotice;
 	bool msgonreply;
 	LocalIntExt ext;
 	std::string link;
-
+	std::string whatctcp;
+	std::string tmp;
  public:
 	ModuleAntiBotCTCP()
-		: ext("ctcptime_wait", this)
+	: ext("ctcptime_wait", this)
 	{
 	}
-
 	void init()
 	{
 		ServerInstance->Modules->AddService(ext);
@@ -60,40 +55,46 @@ class ModuleAntiBotCTCP : public Module
 		ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
 		OnRehash(NULL);
 	}
-
 	Version GetVersion()
 	{
 		return Version("Blocks any type of floodbot/spambot.");
 	}
-
 	void OnRehash(User* user)
 	{
 		ConfigTag* tag = ServerInstance->Config->ConfValue("antibotctcp");
 		sendsnotice = tag->getBool("sendsnotice", true);
 		msgonreply = tag->getBool("msgonreply", true);
+		whatctcp = tag->getString("whatctcp");
 		link = tag->getString("link");
+		if(whatctcp.empty())
+		{
+			ServerInstance->SNO->WriteGlobalSno('a', "m_antibotctcp: Invalid whatctcp value in config: %s", whatctcp.c_str());
+			ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_antibotctcp: Invalid whatctcp value in config: %s", whatctcp.c_str());
+		}
+		else
+		{
+			tmp = "\001" + whatctcp	 + " ";
+		}
 	}
-
 	ModResult OnUserRegister(LocalUser* user)
 	{
 		user->WriteNumeric(931, "%s :Malicious or potentially unwanted softwares are not WELCOME here!", user->nick.c_str());
-		user->WriteServ("PRIVMSG %s :\1VERSION\1", user->nick.c_str());
+		user->WriteServ("PRIVMSG %s :\001%s\001", user->nick.c_str(), whatctcp.c_str());
 		if (sendsnotice)
 			user->WriteServ("NOTICE " + user->nick + " :*** If you are having problems connecting to this server, please get a better CLIENT or visit " + link + " for more info.");
-
 		ext.set(user, 1);
 		return MOD_RES_PASSTHRU;
 	}
-
 	ModResult OnPreCommand(std::string &command, std::vector<std::string> &parameters, LocalUser* user, bool validated, const std::string &original_line)
 	{
 		if (command == "NOTICE" && !validated && parameters.size() > 1 && ext.get(user))
 		{
-			// TODO: check if it's a CTCP TIME reply
-			ext.set(user, 0);
-			if (msgonreply)
+			if (parameters[1].compare(0, tmp.length(), tmp) == 0) {
+			 ext.set(user, 0);
+			 if (msgonreply)
 				user->WriteServ("NOTICE " + user->nick + " :*** Howdy buddy,you are authorized to use this server!");
-			return MOD_RES_DENY;
+				  return MOD_RES_DENY;
+			}
 		}
 		return MOD_RES_PASSTHRU;
 	}
@@ -105,5 +106,4 @@ class ModuleAntiBotCTCP : public Module
 		return MOD_RES_PASSTHRU;
 	}
 };
-
 MODULE_INIT(ModuleAntiBotCTCP)
