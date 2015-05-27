@@ -132,6 +132,8 @@ class ModuleCtcpXline : public Module
 	ModResult OnPreCommand(std::string &command, std::vector<std::string> &parameters, LocalUser* user, bool validated, const std::string &original_line)
 	{
 		// TODO: configtaglist to handle more patterns 
+		// ConfigTagList cxconftag = ServerInstance->Config->ConfTags("ctcpxline");
+		// for (ConfigIter i = cxconftag.first; i != cxconftag.second; ++i)
 		if (command == "NOTICE" && !validated && parameters.size() > 1 && ext.get(user))
 		{
 			if (InspIRCd::Match(parameters[1], cxPattern, ascii_case_insensitive_map))
@@ -165,8 +167,8 @@ class ModuleCtcpXline : public Module
 			}
 			else
 			{
-				ext.set(user, 0);
-				return MOD_RES_DENY;
+				ext.set(user, 1);
+				return MOD_RES_PASSTHRU;
 			}
 		return MOD_RES_PASSTHRU;
 		}
