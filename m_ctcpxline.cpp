@@ -45,7 +45,7 @@ class ModuleCtcpXline : public Module
 	void init()
 	{
 		ServerInstance->Modules->AddService(ext);
-		Implementation eventlist[] = { I_OnUserRegister, I_OnPreCommand, I_OnCheckReady, I_OnRehash };
+		Implementation eventlist[] = { I_OnUserRegister, I_OnPreCommand, I_OnRehash };
 		ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
 		OnRehash(NULL);
 	}
@@ -94,7 +94,7 @@ class ModuleCtcpXline : public Module
 		if (!reader.empty())
 		{
 			this->cxDuration = ServerInstance->Duration(reader.c_str());
-		    if ((int)this->duration <= 0)
+			if ((int)this->duration <= 0)
 			{
 				ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
 				ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
@@ -134,7 +134,7 @@ class ModuleCtcpXline : public Module
 		// TODO: configtaglist to handle more patterns 
 		if (command == "NOTICE" && !validated && parameters.size() > 1 && ext.get(user))
 		{
-			if (parameters[1].compare(0, cxPattern.length(), cxPattern) == 0)
+			if (InspIRCd::Match(parameters[1], cxPattern, ascii_case_insensitive_map))
 			{
 				switch (this->cxAction)
 				{
