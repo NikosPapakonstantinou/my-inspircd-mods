@@ -1,27 +1,21 @@
-m_antibotctcp.cpp
+My inspricd mods
 =======
 
-* ModDesc: Blocks any type of floodbot/spambot. 
 * ModAuthor: Nikos `UrL` Papakonstantinou
-* ModAuthorMail: url.euro@gmail.com 
+* ModAuthorMail: url@mirc.com.gr
 * ModDepends: core 2.0-2.1 
 * ModVersion: $Rev: 22 $ 
 * Thanks to Attila for various fixes.
 * Thanks to Ctcp for the tests.
 
-Written by Nikos `UrL Papakonstantinou, 15 Octomber 2014. 
-
-
 Desc
 =======
-This module blocks any type of floodbot/spambot but it may kill 
-legitimate users with broken clients so use it at your own risk.
+* m_antibotctcp.cpp
+* m_ctcpxline.cpp (Under dev)
 
 
 Installation
 =======
-* 1. Compile the module 
-* 2. Add the following lines at your modules.conf 
-  `<module name="m_antibotctcp.so">` and
-  `<AntiSpambot link="http://yoursite.gr" sendsnotice="false" msgonreply="true">`
-* 3. Rehash
+* 1. Download the module
+* 2. Move it to the src/modules directory
+* 3. Run "make install" to build and install the module.
