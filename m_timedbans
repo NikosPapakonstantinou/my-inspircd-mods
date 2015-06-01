@@ -38,20 +38,6 @@ class TimedBan
 typedef std::vector<TimedBan> timedbans;
 timedbans TimedBanList;
 
-	void init()
-	{
-		Implementation eventlist[] = { I_OnRehash };
-		ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
-		OnRehash(NULL);
-	}
-	
-	void OnRehash(User* user)
-	{
-		ConfigTag* tag = ServerInstance->Config->ConfValue("timedbans");
-		std::string enforcenotice = tag->getBool("enforcenotice", true);
-		std::string enforcekick tag->getBool("enforcekick", true);
-	}
-
 /** Handle /TBAN
  */
 class CommandTban : public Command
@@ -180,10 +166,17 @@ class ModuleTimedBans : public Module
 	void init()
 	{
 		ServerInstance->Modules->AddService(cmd);
-		Implementation eventlist[] = { I_OnDelBan, I_OnBackgroundTimer, I_OnChannelDelete };
+		Implementation eventlist[] = { I_OnDelBan, I_OnBackgroundTimer, I_OnChannelDelete, I_OnRehash };
 		ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
 	}
 
+	void OnRehash(User* user)
+	{
+		ConfigTag* tag = ServerInstance->Config->ConfValue("timedbans");
+		std::string enforcenotice = tag->getBool("enforcenotice", true);
+		std::string enforcekick tag->getBool("enforcekick", true);
+	}
+	
 	virtual ModResult OnDelBan(User* source, Channel* chan, const std::string &banmask)
 	{
 		irc::string listitem = banmask.c_str();
