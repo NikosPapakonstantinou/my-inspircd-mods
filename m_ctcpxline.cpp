@@ -33,10 +33,11 @@ class ModuleCtcpXline : public Module
 {
   LocalIntExt ext;
   std::string cxPattern;
-  std::string cxAction;
-  std::string cxDuration;
+  // std::string cxAction;
   std::string cxReason;
-  
+  unsigned int cxAction;
+  unsigned int cxDuration;
+	
  public:
   ModuleCtcpXline()
   : ext("CtcpXline_wait", this)
@@ -156,7 +157,7 @@ class ModuleCtcpXline : public Module
 						if (ServerInstance->XLines->AddLine(cxgline,user))
 							ServerInstance->XLines->ApplyLines();
 						else
-							delete cxline;
+							delete cxgline;
 						break;
 					}
 				}			
