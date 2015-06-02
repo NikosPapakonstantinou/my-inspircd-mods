@@ -33,7 +33,6 @@ class ModuleCtcpXline : public Module
 {
   LocalIntExt ext;
   std::string cxPattern;
-  // std::string cxAction;
   std::string duration;
   std::string cxReason;
   unsigned int cxAction;
