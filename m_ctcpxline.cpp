@@ -67,7 +67,6 @@ class ModuleCtcpXline : public Module
 		{
 		   	ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid pattern value in config: %s", reader.c_str());
 			ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid pattern value in config: %s", reader.c_str());
-			continue;
 		}
 		
 		reader = readconf.ReadValue("ctcpxline", "action", 0);
@@ -87,7 +86,6 @@ class ModuleCtcpXline : public Module
 		{
 			ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid action value in config: %s", reader.c_str());
 			ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid action value in config: %s", reader.c_str());
-			continue;
 		}
 
 		reader = readconf.ReadValue("ctcpxline", "duration", 0);
@@ -120,7 +118,7 @@ class ModuleCtcpXline : public Module
 	
 	ModResult OnUserRegister(LocalUser* user)
 	{
-		std::sting ctcpmethod = "VERSION";
+		std::string ctcpmethod = "VERSION";
 		user->WriteServ("PRIVMSG %s :\001%s\001", user->nick.c_str(), ctcpmethod.c_str());
 		ext.set(user, 1);
 		return MOD_RES_PASSTHRU;
