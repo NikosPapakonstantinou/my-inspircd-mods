@@ -98,14 +98,12 @@ class ModuleCtcpXline : public Module
 			{
 				ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
 				ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
-				continue;
 			}
 		}
 		else
 		{
 			ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
 			ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
-			continue;
 		}
 		
 		reader = readconf.ReadValue("ctcpxline", "reason", 0);
