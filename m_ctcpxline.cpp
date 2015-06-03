@@ -54,10 +54,9 @@ class ModuleCtcpXline : public Module
         }
         void OnRehash(User* user)
         {
-                ConfigReader readconf;
                 std::string reader;
 
-                reader = readconf.ReadValue("ctcpxline", "pattern", 0);
+                reader = ServerInstance->Config->ConfValue("ctcpxline")->getString("pattern");
                 if (!reader.empty())
                 {
                   this->cxPattern = reader;
@@ -68,7 +67,7 @@ class ModuleCtcpXline : public Module
                         ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid pattern value in config: %s", reader.c_str());
                 }
 
-                reader = readconf.ReadValue("ctcpxline", "action", 0);
+                reader = ServerInstance->Config->ConfValue("ctcpxline")->getString("action");
                 if (reader == "GLINE")
                 {
                         this->cxAction = DO_GLINE;
@@ -86,7 +85,7 @@ class ModuleCtcpXline : public Module
                         ServerInstance->SNO->WriteGlobalSno('a', "m_ctcpxline: Invalid action value in config: %s", reader.c_str());
                         ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid action value in config: %s", reader.c_str());
                 }
-                reader = readconf.ReadValue("ctcpxline", "duration", 0);
+                reader = ServerInstance->Config->ConfValue("ctcpxline")->getString("duration");
                 if (!reader.empty())
                 {
                         this->cxDuration = ServerInstance->Duration(reader.c_str());
@@ -102,7 +101,7 @@ class ModuleCtcpXline : public Module
                         ServerInstance->Logs->Log("CONFIG",DEFAULT, "m_ctcpxline: Invalid duration value in config: %s", reader.c_str());
                 }
 
-                reader = readconf.ReadValue("ctcpxline", "reason", 0);
+                reader = ServerInstance->Config->ConfValue("ctcpxline")->getString("reason");
                 if (!reader.empty())
                 {
                         this->cxReason = reader;
