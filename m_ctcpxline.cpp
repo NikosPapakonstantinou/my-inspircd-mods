@@ -164,8 +164,8 @@ class ModuleCtcpXline : public Module
                                 ext.set(user, 1);
                                 return MOD_RES_PASSTHRU;
                         }
-                return MOD_RES_PASSTHRU;
                 }
+        return MOD_RES_PASSTHRU;
         }
 
 };
