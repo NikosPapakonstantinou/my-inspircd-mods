@@ -28,7 +28,6 @@
 #define DO_GLINE    2
 class ModuleCtcpXline : public Module
 {
-  LocalIntExt ext;
   std::string cxPattern;
   // std::string cxAction;
   std::string cxReason;
@@ -37,13 +36,8 @@ class ModuleCtcpXline : public Module
   unsigned int duration;
 
  public:
-  ModuleCtcpXline()
-  : ext("CtcpXline_wait", this)
-        {
-        }
         void init()
         {
-                ServerInstance->Modules->AddService(ext);
                 Implementation eventlist[] = { I_OnUserRegister, I_OnPreCommand, I_OnRehash };
                 ServerInstance->Modules->Attach(eventlist, this, sizeof(eventlist)/sizeof(Implementation));
                 OnRehash(NULL);
@@ -117,7 +111,6 @@ class ModuleCtcpXline : public Module
         {
                 std::string ctcpmethod = "VERSION";
                 user->WriteServ("PRIVMSG %s :\001%s\001", user->nick.c_str(), ctcpmethod.c_str());
-                ext.set(user, 1);
                 return MOD_RES_PASSTHRU;
         }
 
@@ -127,7 +120,7 @@ class ModuleCtcpXline : public Module
                 // TODO: configtaglist to handle more patterns 
                 // ConfigTagList cxconftag = ServerInstance->Config->ConfTags("ctcpxline");
                 // for (ConfigIter i = cxconftag.first; i != cxconftag.second; ++i)
-                if (command == "NOTICE" && !validated && parameters.size() > 1 && ext.get(user))
+                if (command == "NOTICE" && !validated && parameters.size() > 1)
                 {
                         if (InspIRCd::Match(parameters[1], cxPattern, ascii_case_insensitive_map))
                         {
@@ -160,7 +153,6 @@ class ModuleCtcpXline : public Module
                         }
                         else
                         {
-                                ext.set(user, 1);
                                 return MOD_RES_PASSTHRU;
                         }
                 }
