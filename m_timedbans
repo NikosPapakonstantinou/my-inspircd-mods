@@ -31,6 +31,7 @@ class TimedBan
  public:
 	std::string channel;
 	std::string mask;
+	bool enforcenotice;
 	time_t expire;
 	Channel* chan;
 };
@@ -120,14 +121,9 @@ class CommandTban : public Command
 		// If halfop is loaded, send notice to halfops and above, otherwise send to ops and above
 		ModeHandler* mh = ServerInstance->Modes->FindMode('h', MODETYPE_CHANNEL);
 		char pfxchar = (mh && mh->name == "halfop") ? '%' : '@';
-		if(enforcenotice)
+		if (T.enforcenotice)
 		{
 			channel->WriteAllExcept(ServerInstance->FakeClient, true, pfxchar, tmp, "NOTICE %s :%s added a timed ban on %s lasting for %ld seconds.", channel->name.c_str(), user->nick.c_str(), mask.c_str(), duration);
-		}
-		if(enforcekick)
-		{
-			std::string reason = "You are banned.";
-			channel->KickUser(ServerInstance->FakeClient, it->first, reason.c_str());	
 		}
 		return CMD_SUCCESS;
 	}
@@ -156,6 +152,7 @@ class ChannelMatcher
 
 class ModuleTimedBans : public Module
 {
+	TimedBan T;
 	CommandTban cmd;
  public:
 	ModuleTimedBans()
@@ -173,8 +170,7 @@ class ModuleTimedBans : public Module
 	void OnRehash(User* user)
 	{
 		ConfigTag* tag = ServerInstance->Config->ConfValue("timedbans");
-		std::string enforcenotice = tag->getBool("enforcenotice", true);
-		std::string enforcekick tag->getBool("enforcekick", true);
+		T.enforcenotice = tag->getBool("enforcenotice", true);
 	}
 	
 	virtual ModResult OnDelBan(User* source, Channel* chan, const std::string &banmask)
@@ -221,14 +217,13 @@ class ModuleTimedBans : public Module
 				setban.push_back(mask);
 
 				CUList empty;
-				std::string expiry = "*** Timed ban on " + chan + " expired.";
-				if(enforcenotice)
+				if (T.enforcenotice)
 				{
+					std::string expiry = "*** Timed ban on " + chan + " expired.";
 					cr->WriteAllExcept(ServerInstance->FakeClient, true, '@', empty, "NOTICE %s :%s", cr->name.c_str(), expiry.c_str());
 					ServerInstance->PI->SendChannelNotice(cr, '@', expiry);
-
-					ServerInstance->SendGlobalMode(setban, ServerInstance->FakeClient);
 				}
+				ServerInstance->SendGlobalMode(setban, ServerInstance->FakeClient);
 			}
 		}
 	}
@@ -246,4 +241,3 @@ class ModuleTimedBans : public Module
 };
 
 MODULE_INIT(ModuleTimedBans)
-
