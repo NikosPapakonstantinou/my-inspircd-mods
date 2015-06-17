@@ -18,7 +18,7 @@
  
  #include "inspircd.h"
  #include "xline.h"
-/* $ModConfig: <ctcpxline pattern="mirc" action="gline" duration="84600" reason="You version is blacklisted on this server."> */
+/* $ModConfig: <ctcpxline pattern="*mirc*" action="gline" duration="84600" reason="You version is blacklisted on this server."> */
 /* $ModDesc: Bans specific ctcp replies. */
 /* $ModAuthor: Nikos `UrL` Papakonstantinou */
 /* $ModAuthorMail: url@mirc.com.gr */
