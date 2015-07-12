@@ -36,11 +36,11 @@ class ModuleAntiBotCTCP : public Module
 	std::string ctcp;
 	std::string tmp;
  public:
-        ModuleAntiBotCTCP()
-        : ext("ctcptime_wait", this)
-        {
-        }
-        
+	ModuleAntiBotCTCP()
+	: ext("ctcptime_wait", this)
+	{
+	}
+	
         void init()
         {
 		ServerInstance->Modules->AddService(ext);
