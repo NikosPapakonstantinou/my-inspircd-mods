@@ -82,10 +82,7 @@ class ModuleAntiBotCTCP : public Module
 			ext.set(user, 1);
 			return MOD_RES_PASSTHRU;
 		}
-		else
-		}
-			return MOD_RES_PASSTHRU;
-		}
+		return MOD_RES_PASSTHRU;
 	}
 
 	ModResult OnPreCommand(std::string &command, std::vector<std::string> &parameters, LocalUser* user, bool validated, const std::string &original_line)
