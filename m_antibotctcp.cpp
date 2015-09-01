@@ -80,7 +80,6 @@ class ModuleAntiBotCTCP : public Module
 			user->WriteNumeric(931, "%s :Malicious or potentially unwanted softwares are not WELCOME here!", user->nick.c_str());
 			user->WriteServ("PRIVMSG %s :\001%s\001", user->nick.c_str(), ctcp.c_str());
 			ext.set(user, 1);
-			return MOD_RES_PASSTHRU;
 		}
 		return MOD_RES_PASSTHRU;
 	}
