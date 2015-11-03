@@ -22,7 +22,7 @@
 /* $ModDesc: Bans specific ctcp replies. */
 /* $ModAuthor: Nikos `UrL` Papakonstantinou */
 /* $ModAuthorMail: url@mirc.com.gr */
-/* $ModDepends: core 2.0-2.1 */
+/* $ModDepends: core 2.0-2.1-2.2 */
 #define DO_KILL     0
 #define DO_ZLINE    1
 #define DO_GLINE    2
