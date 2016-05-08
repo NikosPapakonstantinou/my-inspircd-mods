@@ -23,7 +23,7 @@ Installation
 
 Antibotctcp Configuration
 =======
-* modules.conf <module name="m_antibotctcp.so">
-* modules.conf <antibotctcp link="http://yoursite.gr" ctcp="VERSION" quitmsg="true" msgonreply="true">
-* inspircd.conf <connect name="NoSpamBots" antibotctcp="true" port="7000">
-* inspircd.conf <connect name="DisabledOnThatPort" antibotctcp="false" port="6667">
+* modules.conf `<module name="m_antibotctcp.so">`
+* modules.conf `<antibotctcp link="http://yoursite.gr" ctcp="VERSION" quitmsg="true" msgonreply="true">`
+* inspircd.conf `<connect name="NoSpamBots" antibotctcp="true" port="7000">`
+* inspircd.conf `<connect name="DisabledOnThatPort" antibotctcp="false" port="6667">`
