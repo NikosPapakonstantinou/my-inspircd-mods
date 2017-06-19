@@ -3,10 +3,9 @@ My inspricd mods
 
 * ModAuthor: Nikos `UrL` Papakonstantinou
 * ModAuthorMail: url@mirc.com.gr
-* ModDepends: core 2.0-2.1 
+* ModDepends: core 2.0
 * ModVersion: $Rev: 22 $ 
 * Thanks to Attila for various fixes.
-* Thanks to Ctcp for the tests.
 
 Desc
 =======
@@ -24,6 +23,6 @@ Installation
 Antibotctcp Configuration
 =======
 * modules.conf `<module name="m_antibotctcp.so">`
-* modules.conf `<antibotctcp link="http://yoursite.gr" ctcp="VERSION" quitmsg="true" msgonreply="true">`
+* modules.conf `<antibotctcp ctcp="VERSION" quitmsg="true" msgonreply="true" msg="If you are having problems connecting to this server, please get a better client.">`
 * inspircd.conf `<connect name="NoSpamBots" antibotctcp="true" port="7000">`
 * inspircd.conf `<connect name="DisabledOnThatPort" antibotctcp="false" port="6667">`
