@@ -23,6 +23,6 @@ Installation
 Antibotctcp Configuration
 =======
 * modules.conf `<module name="m_antibotctcp.so">`
-* modules.conf `<antibotctcp ctcp="VERSION" msgonreply="true" accepted="Howdy buddy,you are authorized to use this server!"  declined="You have been blocked!Please get a better client.">`
+* modules.conf `<antibotctcp ctcp="VERSION" msgonreply="true" showlogs="true" accepted="Howdy buddy,you are authorized to use this server!"  declined="You have been blocked!Please get a better client.">`
 * inspircd.conf `<connect name="NoSpamBots" antibotctcp="true" port="7000">`
 * inspircd.conf `<connect name="DisabledOnThatPort" antibotctcp="false" port="6667">`
