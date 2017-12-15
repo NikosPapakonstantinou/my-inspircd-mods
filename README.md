@@ -1,4 +1,4 @@
-My inspricd mods
+0x1.gr Network - Inspircd Modules
 =======
 
 * ModAuthor: Nikos `UrL` Papakonstantinou
@@ -8,7 +8,7 @@ My inspricd mods
 
 Desc
 =======
-* (Official Inspircd Module) m_requirectcp.cpp
+* (Official) m_requirectcp.cpp
 * m_ctcpxline.cpp (Beta-dev)
 * m_timedbans.cpp (Beta-dev)
 * m_youtube.cpp (Beta-dev)
